@@ -171,8 +171,8 @@ export const EntradasTab = () => {
                          item.codigo.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          item.fornecedor.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesMes = !filterMes || item.mes === filterMes;
-    const matchesAno = !filterAno || item.ano === filterAno;
+    const matchesMes = !filterMes || filterMes === "todos" || item.mes === filterMes;
+    const matchesAno = !filterAno || filterAno === "todos" || item.ano === filterAno;
     
     return matchesSearch && matchesMes && matchesAno;
   });
@@ -205,7 +205,7 @@ export const EntradasTab = () => {
                 <SelectValue placeholder="Todos" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="todos">Todos</SelectItem>
                 {meses.map(mes => (
                   <SelectItem key={mes} value={mes}>{mes}</SelectItem>
                 ))}
@@ -220,7 +220,7 @@ export const EntradasTab = () => {
                 <SelectValue placeholder="Todos" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="todos">Todos</SelectItem>
                 {anos.map(ano => (
                   <SelectItem key={ano} value={ano}>{ano}</SelectItem>
                 ))}
