@@ -203,23 +203,53 @@ export type Database = {
       profiles: {
         Row: {
           business_id: string | null
+          created_at: string | null
+          created_by: string | null
           id: string
           name: string | null
-          role: string | null
+          role: Database["public"]["Enums"]["user_role"] | null
+          subscription_end_date: string | null
+          subscription_plan:
+            | Database["public"]["Enums"]["subscription_plan"]
+            | null
+          subscription_start_date: string | null
+          subscription_status:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
           updated_at: string | null
         }
         Insert: {
           business_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
           id: string
           name?: string | null
-          role?: string | null
+          role?: Database["public"]["Enums"]["user_role"] | null
+          subscription_end_date?: string | null
+          subscription_plan?:
+            | Database["public"]["Enums"]["subscription_plan"]
+            | null
+          subscription_start_date?: string | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
           updated_at?: string | null
         }
         Update: {
           business_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
           id?: string
           name?: string | null
-          role?: string | null
+          role?: Database["public"]["Enums"]["user_role"] | null
+          subscription_end_date?: string | null
+          subscription_plan?:
+            | Database["public"]["Enums"]["subscription_plan"]
+            | null
+          subscription_start_date?: string | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
           updated_at?: string | null
         }
         Relationships: [
@@ -352,10 +382,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_subscription_active: {
+        Args: { user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      subscription_plan: "monthly" | "semiannual" | "annual"
+      subscription_status: "active" | "expired" | "suspended"
+      user_role: "super_admin" | "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -482,6 +517,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      subscription_plan: ["monthly", "semiannual", "annual"],
+      subscription_status: ["active", "expired", "suspended"],
+      user_role: ["super_admin", "admin", "user"],
+    },
   },
 } as const
