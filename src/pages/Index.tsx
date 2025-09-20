@@ -6,8 +6,11 @@ import { FornecedoresTab } from "@/components/FornecedoresTab";
 import { EntradasTab } from "@/components/EntradasTab";
 import { SaidasTab } from "@/components/SaidasTab";
 import { Dashboard } from "@/components/Dashboard";
+import { AdminPanel } from "@/components/AdminPanel";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
+  const { isSuperAdmin } = useAuth();
   const [currentSection, setCurrentSection] = useState('controle');
   const [activeTab, setActiveTab] = useState('estoque');
 
@@ -22,6 +25,10 @@ const Index = () => {
   const renderContent = () => {
     if (currentSection === 'dashboard') {
       return <Dashboard />;
+    }
+
+    if (currentSection === 'admin' && isSuperAdmin) {
+      return <AdminPanel />;
     }
 
     switch (activeTab) {
@@ -45,7 +52,7 @@ const Index = () => {
         currentSection={currentSection} 
       />
       
-      {currentSection !== 'dashboard' && (
+      {currentSection !== 'dashboard' && currentSection !== 'admin' && (
         <Navigation 
           activeTab={activeTab} 
           onTabChange={handleTabChange} 
