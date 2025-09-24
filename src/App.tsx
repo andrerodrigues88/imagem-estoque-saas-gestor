@@ -22,11 +22,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route 
               path="/" 
-              element={
-                <ProtectedRoute requireAuth requireSubscription>
-                  <Index />
-                </ProtectedRoute>
-              } 
+              element={<Index />} 
             />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
